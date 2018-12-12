@@ -262,6 +262,11 @@
             <version>5.0.0-RC1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.ThoughtWire</groupId>
+            <artifactId>hazelcast-locks</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

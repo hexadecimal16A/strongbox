@@ -281,11 +281,6 @@
             <groupId>org.semver</groupId>
             <artifactId>api</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.github.ThoughtWire</groupId>
-            <artifactId>hazelcast-locks</artifactId>
-        </dependency>
         
     </dependencies>
     
