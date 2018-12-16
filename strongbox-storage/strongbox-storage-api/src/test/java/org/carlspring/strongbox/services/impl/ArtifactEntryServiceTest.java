@@ -7,15 +7,11 @@ import org.carlspring.strongbox.data.CacheManagerTestExecutionListener;
 import org.carlspring.strongbox.data.service.support.search.PagingCriteria;
 import org.carlspring.strongbox.domain.ArtifactEntry;
 import org.carlspring.strongbox.services.ArtifactEntryService;
-import org.carlspring.strongbox.storage.repository.MutableRepository;
 
 import javax.inject.Inject;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.orientechnologies.orient.core.storage.ORecordDuplicatedException;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;

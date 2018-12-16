@@ -19,7 +19,7 @@ public abstract class SynchronizedCommonCrudService<T extends GenericEntity>
     private DistributedLockService lockService;
 
     @Inject
-    void setHazelcastInstance(HazelcastInstance hazelcastInstance)
+    protected void setHazelcastInstance(HazelcastInstance hazelcastInstance)
     {
         lockService = DistributedLockService.newHazelcastLockService(hazelcastInstance);
     }
