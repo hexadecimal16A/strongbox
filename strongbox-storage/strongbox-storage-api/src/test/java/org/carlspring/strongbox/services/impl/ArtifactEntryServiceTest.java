@@ -299,12 +299,10 @@ public class ArtifactEntryServiceTest
         int concurrency = 64;
         IntStream.range(0, concurrency * 2)
                  .parallel()
-                 .forEach(i -> {
-                     artifactEntries.addAll(
-                             createArtifacts("org.carlspring", "fss-concrnt-tst", storageId,
-                                             "repo-fss-concrnt-tst-" +
-                                             testInfo.getTestMethod().get().getName()));
-                 });
+                 .forEach(i -> artifactEntries.addAll(
+                         createArtifacts("org.carlspring", "fss-concrnt-tst", storageId,
+                                         "repo-fss-concrnt-tst-" +
+                                         testInfo.getTestMethod().get().getName() + "-" + i)));
 
         artifactEntryService.delete(artifactEntries);
     }
