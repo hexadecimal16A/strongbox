@@ -34,7 +34,9 @@ public abstract class SynchronizedCommonCrudService<T extends GenericEntity>
         }
         finally
         {
+            logger.info("### Releasing write lock [{}] [{}]", getReentrantReadWriteLockKey(entity), entity.getClass());
             lock.unlock();
+            logger.info("### Released write lock [{}] [{}]", getReentrantReadWriteLockKey(entity), entity.getClass());
         }
     }
 
@@ -55,7 +57,9 @@ public abstract class SynchronizedCommonCrudService<T extends GenericEntity>
         }
         finally
         {
+            logger.info("### Releasing read lock [{}] [{}]", getReentrantReadWriteLockKey(entity), entity.getClass());
             lock.unlock();
+            logger.info("### Released read lock [{}] [{}]", getReentrantReadWriteLockKey(entity), entity.getClass());
         }
 
         if (objectId == null)
@@ -76,17 +80,23 @@ public abstract class SynchronizedCommonCrudService<T extends GenericEntity>
 
     private Lock acquireWriteLock(T entity)
     {
-        ReadWriteLock readWriteLock = lockService.getReentrantReadWriteLock(getReentrantReadWriteLockKey(entity));
+        String key = getReentrantReadWriteLockKey(entity);
+        ReadWriteLock readWriteLock = lockService.getReentrantReadWriteLock(key);
         Lock lock = readWriteLock.writeLock();
+        logger.info("### Acquiring write lock [{}] [{}]", key, entity.getClass());
         lock.lock();
+        logger.info("### Acquired write lock [{}] [{}]", key, entity.getClass());
         return lock;
     }
 
     private Lock acquireReadLock(T entity)
     {
-        ReadWriteLock readWriteLock = lockService.getReentrantReadWriteLock(getReentrantReadWriteLockKey(entity));
+        String key = getReentrantReadWriteLockKey(entity);
+        ReadWriteLock readWriteLock = lockService.getReentrantReadWriteLock(key);
         Lock lock = readWriteLock.readLock();
+        logger.info("### Acquiring read lock [{}] [{}]", key, entity.getClass());
         lock.lock();
+        logger.info("### Acquired read lock [{}] [{}]", key, entity.getClass());
         return lock;
     }
 

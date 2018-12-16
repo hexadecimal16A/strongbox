@@ -293,16 +293,34 @@ public class ArtifactEntryServiceTest
     }
 
     @Test
-    public void testParallelSave(TestInfo testInfo)
+    public void testParallelSaveTheSameArtifactToDifferentRepositories(TestInfo testInfo)
     {
         List<ArtifactEntry> artifactEntries = new ArrayList<>();
         int concurrency = 64;
         IntStream.range(0, concurrency * 2)
                  .parallel()
                  .forEach(i -> artifactEntries.addAll(
-                         createArtifacts("org.carlspring", "fss-concrnt-tst", storageId,
-                                         "repo-fss-concrnt-tst-" +
-                                         testInfo.getTestMethod().get().getName() + "-" + i)));
+                         createArtifacts("org.carlspring",
+                                         "fss-concrnt-tst",
+                                         storageId,
+                                         "repo-fss-concrnt-tst-" + testInfo.getTestMethod().get().getName() + "-" +
+                                         i)));
+
+        artifactEntryService.delete(artifactEntries);
+    }
+
+    @Test
+    public void testParallelSaveTheSameArtifactToTheSameRepository(TestInfo testInfo)
+    {
+        List<ArtifactEntry> artifactEntries = new ArrayList<>();
+        int concurrency = 64;
+        IntStream.range(0, concurrency * 2)
+                 .parallel()
+                 .forEach(i -> artifactEntries.addAll(createArtifacts("org.carlspring",
+                                                                      "sm-rptr-tst",
+                                                                      storageId,
+                                                                      "repo-sm-rptr-tst-" +
+                                                                      testInfo.getTestMethod().get().getName())));
 
         artifactEntryService.delete(artifactEntries);
     }

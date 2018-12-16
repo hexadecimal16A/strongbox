@@ -31,7 +31,7 @@ public abstract class CommonCrudService<T extends GenericEntity>
         implements CrudService<T, String>
 {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommonCrudService.class);
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @PersistenceContext
     protected EntityManager entityManager;
